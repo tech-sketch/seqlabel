@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from typing import Callable, List
 
 from intervaltree import IntervalTree
@@ -32,3 +33,79 @@ def labeling_from_tokens(tokens: List[str], text: str, automaton: Automaton) -> 
                 tree.addi(start_token, end_token, label)
 
     return utils.convert_to_tags(tree, len(tokens))
+
+
+class StringSequence:
+    @abstractmethod
+    def validate_boundary(self, start_offset: int, end_offset: int) -> bool:
+        pass
+
+    def __repr__(self) -> str:
+        return str(self)
+
+    @abstractmethod
+    def __str__(self) -> str:
+        pass
+
+    @abstractmethod
+    def __getitem__(self, index: int) -> str:
+        pass
+
+
+class Text(StringSequence):
+    def __init__(self, text: str) -> None:
+        self._text = text
+
+    def validate_boundary(self, start_offset: int, end_offset: int) -> bool:
+        return 0 <= start_offset <= end_offset < len(self._text)
+
+    def __str__(self) -> str:
+        return self._text
+
+    def __getitem__(self, index: int) -> str:
+        return self._text[index]
+
+
+class TokenizedText(StringSequence):
+    def __init__(self, tokens: List[str], space_after: List[bool]) -> None:
+        self._tokens = tokens
+        self._space_after = space_after
+
+        text = str(self)
+        start_boundaries = []
+        end_boundaries = []
+        m = len(text)
+        i = 0
+        for token in tokens:
+            n = len(token)
+            j = 0
+            while i < m and j < n and text[i] != token[j]:
+                i += 1
+                j += 1
+
+            indices = []
+            j = 0
+            while i < m and j < n and text[i] == token[j]:
+                indices.append(i)
+                i += 1
+                j += 1
+            start_boundaries.append(indices[0])
+            end_boundaries.append(indices[-1])
+        self._start_boundaries = set(start_boundaries)
+        self._end_boundaries = set(end_boundaries)
+
+    def validate_boundary(self, start_offset: int, end_offset: int) -> bool:
+        return (
+            start_offset <= end_offset and start_offset in self._start_boundaries and end_offset in self._end_boundaries
+        )
+
+    def __str__(self) -> str:
+        string = []
+        for token, is_space in zip(self._tokens, self._space_after):
+            string.append(token)
+            if is_space:
+                string.append(" ")
+        return "".join(string)
+
+    def __getitem__(self, index: int) -> str:
+        return self._tokens[index]
