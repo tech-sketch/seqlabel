@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from dataclasses import dataclass
 from typing import Callable, List
 
 from intervaltree import IntervalTree
@@ -109,3 +110,18 @@ class TokenizedText(StringSequence):
 
     def __getitem__(self, index: int) -> str:
         return self._tokens[index]
+
+
+@dataclass
+class Entity:
+    start_offset: int
+    end_offset: int
+    label: str
+
+
+@dataclass
+class Span:
+    start_offset: int
+    end_offset: int
+    label: str
+    sequence: List[str]
