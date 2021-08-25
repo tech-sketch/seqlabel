@@ -1,6 +1,6 @@
 from abc import abstractmethod
 from dataclasses import dataclass
-from typing import Callable, List, Tuple
+from typing import Callable, List, Tuple, Union
 
 from intervaltree import IntervalTree
 from tokenizations import get_alignments
@@ -54,7 +54,7 @@ class StringSequence:
         pass
 
     @abstractmethod
-    def __getitem__(self, index: int) -> str:
+    def __getitem__(self, index: Union[int, slice]) -> Union[str, List[str]]:
         pass
 
 
@@ -71,7 +71,7 @@ class Text(StringSequence):
     def __str__(self) -> str:
         return self._text
 
-    def __getitem__(self, index: int) -> str:
+    def __getitem__(self, index: Union[int, slice]) -> Union[str, List[str]]:
         return self._text[index]
 
 
@@ -107,7 +107,7 @@ class TokenizedText(StringSequence):
                 string.append(" ")
         return "".join(string)
 
-    def __getitem__(self, index: int) -> str:
+    def __getitem__(self, index: Union[int, slice]) -> Union[str, List[str]]:
         return self._tokens[index]
 
 
