@@ -117,6 +117,9 @@ class Entity:
     end_offset: int
     label: str
 
+    def __len__(self) -> int:
+        return self.end_offset - self.start_offset + 1
+
 
 @dataclass
 class Span:
