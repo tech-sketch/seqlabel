@@ -136,4 +136,3 @@ class Span:
     start_offset: int
     end_offset: int
     label: str
-    sequence: List[str]
