@@ -1,8 +1,9 @@
 from abc import abstractmethod
 from dataclasses import dataclass
-from typing import Callable, List
+from typing import Callable, List, Tuple
 
 from intervaltree import IntervalTree
+from tokenizations import get_alignments
 
 from ahocorasick import Automaton
 from phrase_matching import utils
@@ -38,7 +39,11 @@ def labeling_from_tokens(tokens: List[str], text: str, automaton: Automaton) -> 
 
 class StringSequence:
     @abstractmethod
-    def validate_boundary(self, start_offset: int, end_offset: int) -> bool:
+    def validate_offset(self, start_offset: int, end_offset: int) -> bool:
+        pass
+
+    @abstractmethod
+    def align_offset(self, start_offset: int, end_offset: int) -> Tuple[int, int]:
         pass
 
     def __repr__(self) -> str:
@@ -57,8 +62,11 @@ class Text(StringSequence):
     def __init__(self, text: str) -> None:
         self._text = text
 
-    def validate_boundary(self, start_offset: int, end_offset: int) -> bool:
+    def validate_offset(self, start_offset: int, end_offset: int) -> bool:
         return 0 <= start_offset <= end_offset < len(self._text)
+
+    def align_offset(self, start_offset: int, end_offset: int) -> Tuple[int, int]:
+        return start_offset, end_offset
 
     def __str__(self) -> str:
         return self._text
@@ -72,33 +80,24 @@ class TokenizedText(StringSequence):
         self._tokens = tokens
         self._space_after = space_after
 
-        text = str(self)
-        start_boundaries = []
-        end_boundaries = []
-        m = len(text)
-        i = 0
-        for token in tokens:
-            n = len(token)
-            j = 0
-            while i < m and j < n and text[i] != token[j]:
-                i += 1
-                j += 1
+        mapping, _ = get_alignments(tokens, str(self))
+        start_boundaries = {}
+        end_boundaries = {}
+        for i, indices in enumerate(mapping):
+            start_boundaries[indices[0]] = i
+            end_boundaries[indices[-1]] = i
+        self._start_boundaries = start_boundaries
+        self._end_boundaries = end_boundaries
 
-            indices = []
-            j = 0
-            while i < m and j < n and text[i] == token[j]:
-                indices.append(i)
-                i += 1
-                j += 1
-            start_boundaries.append(indices[0])
-            end_boundaries.append(indices[-1])
-        self._start_boundaries = set(start_boundaries)
-        self._end_boundaries = set(end_boundaries)
-
-    def validate_boundary(self, start_offset: int, end_offset: int) -> bool:
+    def validate_offset(self, start_offset: int, end_offset: int) -> bool:
         return (
             start_offset <= end_offset and start_offset in self._start_boundaries and end_offset in self._end_boundaries
         )
+
+    def align_offset(self, start_offset: int, end_offset: int) -> Tuple[int, int]:
+        if not self.validate_offset(start_offset, end_offset):
+            raise ValueError("Invalid offset")
+        return self._start_boundaries[start_offset], self._end_boundaries[end_offset]
 
     def __str__(self) -> str:
         string = []
