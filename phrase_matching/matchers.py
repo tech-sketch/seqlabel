@@ -30,7 +30,7 @@ class DictionaryMatcher(Matcher):
         entities = []
         for end_offset, (label, length) in self._automaton.iter(str(text)):
             start_offset = end_offset - length + 1
-            if not text.validate_boundary(start_offset, end_offset):
+            if not text.validate_offset(start_offset, end_offset):
                 continue
             entities.append(Entity(start_offset, end_offset, label))
         return entities
