@@ -15,7 +15,7 @@ class JSONLSerializer(Serializer):
     def save(self, text: StringSequence, entities: List[Entity]) -> str:
         tags = []
         for entity in entities:
-            start_offset, end_offset = text.align_offset(entity.start_offset, entity.end_offset)
+            start_offset, end_offset = text.align_offsets(entity.start_offset, entity.end_offset)
             tags.append({"start_offset": start_offset, "end_offset": end_offset, "label": entity.label})
         return json.dumps(
             {
@@ -31,7 +31,7 @@ class IOB2Serializer(Serializer):
         n = len(sequence)
         tags = ["O"] * n
         for entity in entities:
-            start, end = text.align_offset(entity.start_offset, entity.end_offset)
+            start, end = text.align_offsets(entity.start_offset, entity.end_offset)
 
             if any(tag != "O" for tag in tags[start : end + 1]):
                 raise ValueError("Overlapping spans are found.")
@@ -53,7 +53,7 @@ class BILOUSerializer(Serializer):
         n = len(sequence)
         tags = ["O"] * n
         for entity in entities:
-            start, end = text.align_offset(entity.start_offset, entity.end_offset)
+            start, end = text.align_offsets(entity.start_offset, entity.end_offset)
 
             if any(tag != "O" for tag in tags[start : end + 1]):
                 raise ValueError("Overlapping spans are found.")
