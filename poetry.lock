@@ -399,6 +399,14 @@ checkqa-mypy = ["mypy (==v0.761)"]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
 [[package]]
+name = "pytokenizations"
+version = "0.8.4"
+description = ""
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[[package]]
 name = "regex"
 version = "2021.8.3"
 description = "Alternative regular expression module, to replace re."
@@ -514,7 +522,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "718f669899cc50f44b2a743413387b48f1fa98bd783f2472f5b5ae98e24385ba"
+content-hash = "ded10b915c6a40f2a434d35d5a6805f2071afd98e0815c8337df14b24bf30d0d"
 
 [metadata.files]
 appdirs = [
@@ -709,6 +717,18 @@ pyparsing = [
 pytest = [
     {file = "pytest-5.4.3-py3-none-any.whl", hash = "sha256:5c0db86b698e8f170ba4582a492248919255fcd4c79b1ee64ace34301fb589a1"},
     {file = "pytest-5.4.3.tar.gz", hash = "sha256:7979331bfcba207414f5e1263b5a0f8f521d0f457318836a7355531ed1a4c7d8"},
+]
+pytokenizations = [
+    {file = "pytokenizations-0.8.4-cp37-cp37m-macosx_10_7_x86_64.whl", hash = "sha256:40fda9f57293b04dd477808a3e05f6fe8fd370aa4d5b5699cb28bee3db729687"},
+    {file = "pytokenizations-0.8.4-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:200a3efacaed54d6b2ed1def9ac69eb055c90b917576e1bdc084873356a5aeae"},
+    {file = "pytokenizations-0.8.4-cp37-none-win_amd64.whl", hash = "sha256:1cd8f2c431dcb60eb3b4b8d3991c138c76e343effa238232d2a2dbdfb2db0d61"},
+    {file = "pytokenizations-0.8.4-cp38-cp38-macosx_10_7_x86_64.whl", hash = "sha256:60f72af7342e64db18aed16dd57e34832adb4c18a52d63a8e05904b65940fe58"},
+    {file = "pytokenizations-0.8.4-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:06f5d36093f7117ff1d988acba6d0e9c34e980f90824966bb01fc1c9bc465552"},
+    {file = "pytokenizations-0.8.4-cp38-none-win_amd64.whl", hash = "sha256:58751b8c98afb71524bcee7786636b196734172330a39e2c1c45aa8480443e0b"},
+    {file = "pytokenizations-0.8.4-cp39-cp39-macosx_10_7_x86_64.whl", hash = "sha256:6bad64fbf3ff2906e9fd8ce2dfba2ac0c1495ce39a0f6e30925dc606120f8c5a"},
+    {file = "pytokenizations-0.8.4-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:19837453f60f30449986ebfb80e0830b0d18b442560d32669c979400f695e487"},
+    {file = "pytokenizations-0.8.4-cp39-none-win_amd64.whl", hash = "sha256:33b612a9e7401836dc3dd7ad81836bb9444fbce40ca8084162d72a55dd162805"},
+    {file = "pytokenizations-0.8.4.tar.gz", hash = "sha256:53c983c3e14be005071b7a68801fe1ceee40543d7f64ad872d64382b172601bf"},
 ]
 regex = [
     {file = "regex-2021.8.3-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:8764a78c5464ac6bde91a8c87dd718c27c1cabb7ed2b4beaf36d3e8e390567f9"},

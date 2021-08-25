@@ -10,6 +10,7 @@ intervaltree = "^3.1.0"
 pyahocorasick = "^1.4.2"
 conllu = "^4.4"
 seqeval = "^1.2.2"
+pytokenizations = "^0.8.4"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
