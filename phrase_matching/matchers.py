@@ -17,16 +17,31 @@ class Matcher:
 
 
 class DictionaryMatcher(Matcher):
+    """Dictionary-based matching"""
+
     def __init__(self) -> None:
         self._automaton = Automaton()
 
     def add(self, patterns: Dict) -> None:
+        """Adds entity match-rules to DictionaryMatcher.
+
+        Args:
+          patterns: A dictionary mapping string sequences to the corresponding labels.
+        """
         automaton = self._automaton
         for string, label in patterns.items():
             automaton.add_word(string, (label, len(string)))
         automaton.make_automaton()
 
     def match(self, text: StringSequence) -> List[Entity]:
+        """Finds all sequences matching the supplied patterns.
+
+        Args:
+          text: A text to match over.
+
+        Returns:
+          A list of entities describing matches.
+        """
         entities = []
         for end_offset, (label, length) in self._automaton.iter(str(text)):
             start_offset = end_offset - length + 1
