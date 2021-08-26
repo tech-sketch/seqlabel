@@ -3,8 +3,8 @@ from typing import List
 
 import pytest
 
-from phrase_matching.core import Entity, StringSequence
-from phrase_matching.serializers import BILOUSerializer, IOB2Serializer, JSONLSerializer
+from seqlabel.core import Entity, StringSequence
+from seqlabel.serializers import BILOUSerializer, IOB2Serializer, JSONLSerializer
 
 
 @pytest.mark.parametrize(

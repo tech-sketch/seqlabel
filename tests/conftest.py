@@ -1,6 +1,6 @@
 import pytest
 
-from phrase_matching.core import Text, TokenizedText
+from seqlabel.core import Text, TokenizedText
 
 
 @pytest.fixture

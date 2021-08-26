@@ -2,8 +2,8 @@ from typing import Dict, List
 
 import pytest
 
-from phrase_matching.core import Entity, StringSequence
-from phrase_matching.matchers import DictionaryMatcher
+from seqlabel.core import Entity, StringSequence
+from seqlabel.matchers import DictionaryMatcher
 
 
 @pytest.fixture

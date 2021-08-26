@@ -1,6 +1,6 @@
 import pytest
 
-from phrase_matching.core import Entity, Text, TokenizedText
+from seqlabel.core import Entity, Text, TokenizedText
 
 
 @pytest.mark.parametrize(

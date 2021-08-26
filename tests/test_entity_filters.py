@@ -2,8 +2,8 @@ from typing import List
 
 import pytest
 
-from phrase_matching.core import Entity
-from phrase_matching.entity_filters import LongestMatchFilter, overlap
+from seqlabel.core import Entity
+from seqlabel.entity_filters import LongestMatchFilter, overlap
 
 
 @pytest.fixture
