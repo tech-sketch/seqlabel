@@ -13,6 +13,15 @@ class Serializer:
 
 class JSONLSerializer(Serializer):
     def save(self, text: StringSequence, entities: List[Entity]) -> str:
+        """Converts a text and entities as JSONL format.
+
+        Args:
+          text: A text.
+          entities: A list of entities appeared in a given text.
+
+        Returns:
+          A JSON format string.
+        """
         tags = []
         for entity in entities:
             start_offset, end_offset = text.align_offsets(entity.start_offset, entity.end_offset)
@@ -27,6 +36,15 @@ class JSONLSerializer(Serializer):
 
 class IOB2Serializer(Serializer):
     def save(self, text: StringSequence, entities: List[Entity]) -> str:
+        """Converts a text and entities as IOB2 format.
+
+        Args:
+          text: A text.
+          entities: A list of entities appeared in a given text.
+
+        Returns:
+          A IOB2 format string.
+        """
         sequence = list(text)
         n = len(sequence)
         tags = ["O"] * n
@@ -49,6 +67,15 @@ class IOB2Serializer(Serializer):
 
 class BILOUSerializer(Serializer):
     def save(self, text: StringSequence, entities: List[Entity]) -> str:
+        """Converts a text and entities as BILOU format.
+
+        Args:
+          text: A text.
+          entities: A list of entities appeared in a given text.
+
+        Returns:
+          A BILOU format string.
+        """
         sequence = list(text)
         n = len(sequence)
         tags = ["O"] * n
