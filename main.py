@@ -2,29 +2,35 @@ import json
 from argparse import ArgumentParser, Namespace
 
 from conllu import parse
-from seqeval.metrics import classification_report
 
-from phrase_matching.core import labeling_from_tokens
-from phrase_matching.utils import build_automaton
+from phrase_matching.core import TokenizedText
+from phrase_matching.entity_filters import LongestMatchFilter
+from phrase_matching.matchers import DictionaryMatcher
+from phrase_matching.serializers import IOB2Serializer
 
 
 def main(args: Namespace) -> None:
     with open(args.dictionary) as f:
-        automaton = build_automaton({key: value[0]["label"] for key, value in json.load(f).items()})
+        dictionary = json.load(f)
 
     with open(args.input) as f:
         data = parse(f.read())
 
-    T = []
-    Y = []
+    matcher = DictionaryMatcher()
+    matcher.add({key: value[0]["label"] for key, value in dictionary.items()})
+
+    filter_ = LongestMatchFilter()
+    serializer = IOB2Serializer()
+
     for sentence in data:
         tokens = [x["form"] for x in sentence]
-        tags_gold = [x["misc"]["NE"] if "NE" in x["misc"] else "O" for x in sentence]
-        T.append(tags_gold)
-        tags_pred = labeling_from_tokens(tokens, "".join(tokens), automaton)
-        Y.append(tags_pred)
+        space_after = [x["misc"]["SpaceAfter"] == "Yes" for x in sentence]
 
-    print(classification_report(T, Y))
+        text = TokenizedText(tokens, space_after)
+
+        entities = matcher.match(text)
+        filtered = filter_(entities)
+        print(serializer.save(text, filtered))
 
 
 if __name__ == "__main__":
