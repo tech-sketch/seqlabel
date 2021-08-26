@@ -3,16 +3,6 @@ import pytest
 from phrase_matching.core import Entity, Text, TokenizedText
 
 
-@pytest.fixture
-def text_ja() -> Text:
-    return Text("日本の首都は東京都です。")
-
-
-@pytest.fixture
-def tokenized_text_ja() -> TokenizedText:
-    return TokenizedText(["日本", "の", "首都", "は", "東京", "都", "です", "。"], [False] * 8)
-
-
 @pytest.mark.parametrize(
     "start_offset,end_offset,expected",
     [(3, 5, True), (0, 9, True), (0, 11, True), (0, 0, True), (-1, 5, False), (3, 12, False)],
