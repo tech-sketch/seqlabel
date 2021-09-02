@@ -1,8 +1,11 @@
 [tool.poetry]
-name = "phrase-matching"
+name = "seqlabel"
 version = "0.1.0"
-description = ""
-authors = ["yasufumi <yasufumi.taniguchi@gmail.com>"]
+description = "Rule-based Text Labeling Framework Aiming at Flexibility"
+authors = ["Yasufumi Taniguchi <yasufumi.taniguchi@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/yasufumy/seqlabel"
 
 [tool.poetry.dependencies]
 python = "^3.8"
