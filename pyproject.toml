@@ -5,11 +5,8 @@ description = ""
 authors = ["yasufumi <yasufumi.taniguchi@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
-intervaltree = "^3.1.0"
+python = "^3.8"
 pyahocorasick = "^1.4.2"
-conllu = "^4.4"
-seqeval = "^1.2.2"
 pytokenizations = "^0.8.4"
 
 [tool.poetry.dev-dependencies]
