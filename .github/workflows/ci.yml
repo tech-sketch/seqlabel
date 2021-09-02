@@ -29,10 +29,10 @@ jobs:
         poetry run black . --check
     - name: Lint with isort
       run: |
-        poetry run isort . -c
+        poetry run isort -c .
     - name: Lint with mypy
       run: |
         poetry run mypy seqlabel
     - name: Run tests
       run: |
-        poetry run pytest tests
+        poetry run pytest --cov=seqlabel --cov-report=term-missing
