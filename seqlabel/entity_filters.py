@@ -18,12 +18,16 @@ def overlap(a: Entity, b: Entity) -> bool:
 
 
 class EntityFilter:
+    """Base class of all entity filters."""
+
     @abstractmethod
     def __call__(self, entities: List[Entity]) -> List[Entity]:
         pass
 
 
 class LongestMatchFilter:
+    """Entity filter prioritizes entity length."""
+
     def __call__(self, entities: List[Entity]) -> List[Entity]:
         """Removes overlapping entities and leaves the longest entity.
 
@@ -43,6 +47,8 @@ class LongestMatchFilter:
 
 
 class MaximizedMatchFilter:
+    """Entity filter prioritizes the number of entities."""
+
     def __call__(self, entities: List[Entity]) -> List[Entity]:
         """Removes overlapping entities and leaves as many entities as possible.
 

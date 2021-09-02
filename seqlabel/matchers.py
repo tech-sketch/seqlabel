@@ -7,6 +7,8 @@ from .core import Entity, StringSequence
 
 
 class Matcher:
+    """Base class of all matchers."""
+
     @abstractmethod
     def add(self, patterns: Dict) -> None:
         pass
@@ -17,7 +19,7 @@ class Matcher:
 
 
 class DictionaryMatcher(Matcher):
-    """Dictionary-based matching"""
+    """Dictionary-based matching."""
 
     def __init__(self) -> None:
         self._automaton = Automaton()

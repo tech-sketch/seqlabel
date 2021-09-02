@@ -6,12 +6,16 @@ from .core import Entity, StringSequence
 
 
 class Serializer:
+    """Base class of all serializers."""
+
     @abstractmethod
     def save(self, text: StringSequence, entities: List[Entity]) -> str:
         pass
 
 
 class JSONLSerializer(Serializer):
+    """JSON format Serializer."""
+
     def save(self, text: StringSequence, entities: List[Entity]) -> str:
         """Converts a text and entities as JSONL format.
 
@@ -35,6 +39,8 @@ class JSONLSerializer(Serializer):
 
 
 class IOB2Serializer(Serializer):
+    """IOB2 format Serializer."""
+
     def save(self, text: StringSequence, entities: List[Entity]) -> str:
         """Converts a text and entities as IOB2 format.
 
@@ -66,6 +72,8 @@ class IOB2Serializer(Serializer):
 
 
 class BILOUSerializer(Serializer):
+    """BILOU format Serializer."""
+
     def save(self, text: StringSequence, entities: List[Entity]) -> str:
         """Converts a text and entities as BILOU format.
 
