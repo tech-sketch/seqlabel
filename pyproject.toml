@@ -5,7 +5,7 @@ description = "Rule-based Text Labeling Framework Aiming at Flexibility"
 authors = ["Yasufumi Taniguchi <yasufumi.taniguchi@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/yasufumy/seqlabel"
+repository = "https://github.com/tech-sketch/seqlabel"
 
 [tool.poetry.dependencies]
 python = "^3.8"
