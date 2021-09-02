@@ -1,5 +1,7 @@
 # seqlabel: Flexible Rule-based Text Labeling
 
+![CI badge](https://github.com/yasufumy/seqlabel/actions/workflows/ci.yml/badge.svg)
+
 *seqlabel* is a rule-based text labeling framework aiming at flexibility. 
 
 ## Installation
