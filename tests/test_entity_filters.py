@@ -3,12 +3,17 @@ from typing import List
 import pytest
 
 from seqlabel.core import Entity
-from seqlabel.entity_filters import LongestMatchFilter, overlap
+from seqlabel.entity_filters import LongestMatchFilter, MaximizedMatchFilter, overlap
 
 
 @pytest.fixture
 def longest_match_filter() -> LongestMatchFilter:
     return LongestMatchFilter()
+
+
+@pytest.fixture
+def maximized_match_filter() -> MaximizedMatchFilter:
+    return MaximizedMatchFilter()
 
 
 @pytest.mark.parametrize(
@@ -37,3 +42,15 @@ def test_longest_match_filter(
     longest_match_filter: LongestMatchFilter, entities: List[Entity], expected: List[Entity]
 ) -> None:
     assert longest_match_filter(entities) == expected
+
+
+@pytest.mark.parametrize(
+    "entities,expected",
+    [
+        ([Entity(0, 3, "LOC"), Entity(2, 7, "LOC"), Entity(6, 8, "LOC")], [Entity(0, 3, "LOC"), Entity(6, 8, "LOC")]),
+    ],
+)
+def test_maximized_match_filter(
+    maximized_match_filter: MaximizedMatchFilter, entities: List[Entity], expected: List[Entity]
+) -> None:
+    assert maximized_match_filter(entities) == expected
