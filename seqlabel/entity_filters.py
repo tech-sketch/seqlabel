@@ -40,3 +40,23 @@ class LongestMatchFilter:
                 filtered.append(cur)
         filtered.sort(key=lambda entity: entity.start_offset)
         return filtered
+
+
+class MaximizedMatchFilter:
+    def __call__(self, entities: List[Entity]) -> List[Entity]:
+        """Removes overlapping entities and leaves as many entities as possible.
+
+        Args:
+          entities: A list of entities.
+
+        Returns:
+          A list of entities without any overlaps.
+        """
+        entities = sorted(entities, key=lambda entity: entity.end_offset)
+        filtered: List[Entity] = []
+        for entity in entities:
+            if not filtered:
+                filtered.append(entity)
+            elif not overlap(filtered[-1], entity):
+                filtered.append(entity)
+        return filtered
