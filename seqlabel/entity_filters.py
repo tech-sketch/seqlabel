@@ -25,7 +25,7 @@ class EntityFilter:
         pass
 
 
-class LongestMatchFilter:
+class LongestMatchFilter(EntityFilter):
     """Entity filter prioritizes entity length."""
 
     def __call__(self, entities: List[Entity]) -> List[Entity]:
@@ -46,7 +46,7 @@ class LongestMatchFilter:
         return filtered
 
 
-class MaximizedMatchFilter:
+class MaximizedMatchFilter(EntityFilter):
     """Entity filter prioritizes the number of entities."""
 
     def __call__(self, entities: List[Entity]) -> List[Entity]:
