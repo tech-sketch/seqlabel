@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "seqlabel"
-version = "0.2.1"
+version = "0.2.2"
 description = "Rule-based Text Labeling Framework Aiming at Flexibility"
 authors = ["Yasufumi Taniguchi <yasufumi.taniguchi@gmail.com>"]
 license = "MIT"
@@ -8,7 +8,7 @@ readme = "README.md"
 repository = "https://github.com/tech-sketch/seqlabel"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 pyahocorasick = "^1.4.2"
 pytokenizations = "^0.8.4"
 
@@ -20,6 +20,7 @@ black = "^21.7b0"
 mypy = "^0.910"
 pytest-cov = "^2.12.1"
 isort = "^5.9.3"
+importlib-metadata = "^3.7.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
