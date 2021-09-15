@@ -1,6 +1,7 @@
 # seqlabel: Flexible Rule-based Text Labeling
 
 ![CI badge](https://github.com/tech-sketch/seqlabel/actions/workflows/ci.yml/badge.svg)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1WfjCIWntq5H4kSiB_vYM2B-1oiGjAyuA?usp=sharing)
 
 *seqlabel* is a rule-based text labeling framework aiming at flexibility. 
 
@@ -79,7 +80,7 @@ Initialize `TokenizedText` by giving it `tokens` and `space_after` you want to l
 ```py
 tokenized_text = TokenizedText(
   ["Tokyo", "is", "the", "captial", "of", "Japan", "."],
-  [True, True, True, True, True, True, False]
+  [True, True, True, True, True, False, False]
 )
 ```
 
