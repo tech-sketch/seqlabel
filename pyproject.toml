@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "seqlabel"
-version = "0.2.3"
+version = "0.2.4"
 description = "Rule-based Text Labeling Framework Aiming at Flexibility"
 authors = ["Yasufumi Taniguchi <yasufumi.taniguchi@gmail.com>"]
 license = "MIT"
