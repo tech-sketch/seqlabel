@@ -71,6 +71,41 @@ class IOB2Serializer(Serializer):
         return "\n".join(result)
 
 
+class IOBESSerializer(Serializer):
+    """IOBES format Serializer."""
+
+    def save(self, text: StringSequence, entities: List[Entity]) -> str:
+        """Converts a text and entities as IOBES format.
+
+        Args:
+          text: A text.
+          entities: A list of entities appeared in a given text.
+
+        Returns:
+          A IOBES format string.
+        """
+        sequence = list(text)
+        n = len(sequence)
+        tags = ["O"] * n
+        for entity in entities:
+            start, end = text.align_offsets(entity.start_offset, entity.end_offset)
+
+            if any(tag != "O" for tag in tags[start : end + 1]):
+                raise ValueError("Overlapping spans are found.")
+
+            if start == end:
+                tags[start] = f"S-{entity.label}"
+                continue
+            tags[start] = f"B-{entity.label}"
+            tags[start + 1 : end] = [f"I-{entity.label}"] * (end - start - 1)
+            tags[end] = f"E-{entity.label}"
+
+        result = []
+        for item, tag in zip(sequence, tags):
+            result.append(f"{item}\t{tag}")
+        return "\n".join(result)
+
+
 class BILOUSerializer(Serializer):
     """BILOU format Serializer."""
 
